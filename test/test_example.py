@@ -6,9 +6,9 @@ from models import *
 from main import *
 from google.appengine.ext import testbed
 
-class ProjectHandlerTest(unittest.TestCase):
+class ExampleHandlerTest(unittest.TestCase):
     def setUp(self):
-        app = webapp2.WSGIApplication([('/projects', ProjectHandler)])
+        app = webapp2.WSGIApplication([('/example', ExampleHandler)])
         self.testapp = webtest.TestApp(app)
         self.testbed = testbed.Testbed()
         self.testbed.activate()
@@ -16,11 +16,11 @@ class ProjectHandlerTest(unittest.TestCase):
     def tearDown(self):
         self.testbed.deactivate()
 
-    def test_postProject(self):
+    def test_postExample(self):
         self.testbed.init_datastore_v3_stub()
         self.testbed.init_memcache_stub()
         params = {'name': 'calvin', 'description': 'test'}
-        response = self.testapp.post('/projects', params)
+        response = self.testapp.post('/example', params)
         self.assertEqual(response.status_int, 201)
 
 if __name__ == "__main__":
